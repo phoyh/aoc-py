@@ -1,7 +1,7 @@
 This repository contains my **revised** solutions to the [Advent of Code](https://adventofcode.com/) puzzles in Python.
 
 The top ingredients to these solutions are:
-* My **original code** - optimized (i.e., *rushed*) for minimal *time-to-submission*.
+* My **original code** - optimized (i.e., *rushed*) for minimal *time-to-submission* (2022 and following).
 * Deeper **insights** into the problem domain - gathered by pondering on the puzzle after submission.
 	* This might improve the *complexity class* of the algorithm.
 * Thorough **refactoring** aiming at *clean code*.
@@ -11,4 +11,4 @@ The top ingredients to these solutions are:
 
 My puzzle inputs are not part of this repository, as [stipulated by the rules](https://adventofcode.com/about#faq_copying). Instead, they reside in a *private submodule*.
 
-In case you wonder, my **personal statistics** (times, ranks, scores) are found [here](../aoc-stats/).
+In case you wonder, my **personal statistics** (times, ranks, scores) are found [here](https://github.com/phoyh/aoc-stats).
