@@ -1,9 +1,9 @@
-import regex
+import re
 
 import api.file
 
 def line_conv(l):
-	grs = regex.fullmatch(r'(\d+)-(\d+) (.): (.+)', l)
+	grs = re.fullmatch(r'(\d+)-(\d+) (.): (.+)', l)
 	assert grs
 	val1, val2, letter, pw = grs.groups()
 	return (int(val1), int(val2), letter, pw)
