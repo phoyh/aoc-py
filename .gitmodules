@@ -1,0 +1,3 @@
+[submodule "input"]
+	path = input
+	url = D:/gh/aoc-input

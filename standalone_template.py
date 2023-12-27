@@ -1,0 +1,35 @@
+DAY = '../full'
+#DAY = '../mini'
+
+# pylint: disable=unused-import,wrong-import-position,multiple-imports,line-too-long
+import functools as ft, itertools as it, operator as op
+import heapq, math, re, sys
+#import igraph as ig, networkx as nx, numpy as np, z3
+from collections import Counter, defaultdict, deque
+from api import Cube, CubeSet, file, graph, parse, P, PSet, PDict, RDict, RSet, search, xmath, z3result
+N, S, W, E = NSWE = P.NSWE()
+O = P.O()
+
+########### HERE ##############
+
+def line_parse(line: str):
+	#return [int(e) for e in re.findall(r'\d', line)]
+	#return [e for e in re.findall(r'\w+', line)]
+	return line
+
+result = 0
+#inp = file.readall(DAY)
+#segs = file.segments(DAY, line_parse)
+#lines = file.lines(DAY, parse.uints)
+#lines = file.lines(DAY, parse.ints)
+#lines = file.lines(DAY, line_parse)
+#for lines in segs:
+#for i, l in enumerate(lines):
+	#result += 1
+
+#line = '24-71 J: James\n0-2 B: Brat'
+#for match in re.finditer(r'(\d+)-(\d+) (\w): (\w+)', line):
+#	lo, hi, ch, word = match.groups()
+
+print(result)
+#sys.exit()
