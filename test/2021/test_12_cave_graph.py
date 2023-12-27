@@ -19,7 +19,7 @@ def all_paths(start, end, neighbors, is_path_prefix_legit):
 
 def getEdges():
 	e = collections.defaultdict(lambda : [])
-	for l in api.file.lines('2021/12_mini'):
+	for l in api.file.lines('2021/12_ex'):
 		a, b = l.split('-')
 		e[a] += [b]
 		e[b] += [a]

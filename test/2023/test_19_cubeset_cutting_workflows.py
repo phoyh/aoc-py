@@ -2,7 +2,7 @@ from collections import defaultdict
 from api import Cube, CubeSet, file, RSet, parse, P
 
 def parse_input():
-	wfs_raw, ps_raw = file.segments('2023/19_mini')
+	wfs_raw, ps_raw = file.segments('2023/19_ex')
 	wfs = {}
 	for wf_raw in wfs_raw:
 		base_label, rest_raw = wf_raw.split('{')

@@ -3,7 +3,7 @@ from typing import Callable, TypeVar
 T = TypeVar('T')
 
 def readall(path_in_input_wo_suffix: str) -> str:
-	with open('../aocPython/input/' + path_in_input_wo_suffix + '.txt', 'r') as f:
+	with open('input/' + path_in_input_wo_suffix + '.txt', 'r') as f:
 		return f.read().strip()
 
 def segments(path_in_input_wo_suffix: str,

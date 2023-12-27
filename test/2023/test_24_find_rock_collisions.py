@@ -20,7 +20,7 @@ def test_first_numpy():
 	assert 27328 == res
 
 def test_first_z3():
-	hs = file.lines('2023/24_mini', parse.ints)
+	hs = file.lines('2023/24_ex', parse.ints)
 	res = 0
 	mi, ma = 7, 27
 	for (x1, y1, _, vx1, vy1, _), (x2, y2, _, vx2, vy2, _) in it.combinations(hs, 2):
@@ -38,7 +38,7 @@ def test_first_z3():
 	assert 2 == res
 
 def test_second_int():
-	hs = file.lines('2023/24_mini', parse.ints)
+	hs = file.lines('2023/24_ex', parse.ints)
 	s = z3.Solver()
 	rx, ry, rz, rvx, rvy, rvz = (z3.Int('r' + n) for n in 'x,y,z,vx,vy,vz'.split(','))
 	for idx, (hx, hy, hz, hvx, hvy, hvz) in enumerate(hs):

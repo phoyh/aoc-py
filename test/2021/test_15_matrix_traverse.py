@@ -25,7 +25,7 @@ def test_first():
 	})
 
 def test_second():
-	inp = file.lines('2021/15_mini')
+	inp = file.lines('2021/15_ex')
 	assert 315 == getMinCost({
 		(rx * len(inp[0]) + x, ry * len(inp) + y): normalizeValue(int(c) + rx + ry)
 		for y, l in enumerate(inp)

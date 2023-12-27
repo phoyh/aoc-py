@@ -38,5 +38,5 @@ def test_first():
 	assert 7728 == get_energized(get_step_instructions(), get_dgrid('2023/16'), P.O(), E)
 
 def test_second():
-	g = get_dgrid('2023/16_mini')
+	g = get_dgrid('2023/16_ex')
 	assert 51 == max(get_energized(get_step_instructions(), g, p, d) for p, d in get_starters(g))

@@ -2,7 +2,7 @@ import numpy as np
 from api import PDict, file
 
 def steps_dgrid():
-	g = PDict.from_lines(file.lines('2021/25_mini'))
+	g = PDict.from_lines(file.lines('2021/25_ex'))
 	width, height = g.size_by_dim()
 	step = 0
 	stepg = PDict({})
@@ -20,7 +20,7 @@ def steps_dgrid():
 	return step
 
 def steps_numpy():
-	g = np.array([list(l) for l in file.lines('2021/25_mini')])
+	g = np.array([list(l) for l in file.lines('2021/25_ex')])
 	step = 0
 	while True:
 		step += 1

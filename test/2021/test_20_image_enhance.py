@@ -37,5 +37,5 @@ def dotsAfterEnhanceTimes(algoWithDots, times):
 def test_first():
 	assert 5400 == dotsAfterEnhanceTimes(getAlgoWithStartDots(''), 2)
 
-def test_second_mini():
-	assert 3351 == dotsAfterEnhanceTimes(getAlgoWithStartDots('_mini'), 50)
+def test_second_ex():
+	assert 3351 == dotsAfterEnhanceTimes(getAlgoWithStartDots('_ex'), 50)

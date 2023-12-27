@@ -27,7 +27,7 @@ def test_first():
 	assert 108857 == get_load(fall(get_input('2023/14')))
 
 def test_second():
-	lines = get_input('2023/14_mini')
+	lines = get_input('2023/14_ex')
 	todo = 1_000_000_000
 	lookup = {}
 	while todo > 0:

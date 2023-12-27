@@ -17,7 +17,7 @@ def test_first():
 	assert 3578 == result
 
 def test_second2():
-	g = PDict.from_lines(file.lines('2023/21_mini'))
+	g = PDict.from_lines(file.lines('2023/21_ex'))
 	width, height = g.size_by_dim()
 	assert width == height
 	side_len = width

@@ -2,7 +2,7 @@ from api import PDict, file, graph, P
 N, S, W, E = NSWE = P.NSWE()
 
 def get_grid():
-	return PDict.from_lines(file.lines('2023/17_mini'), int)
+	return PDict.from_lines(file.lines('2023/17_ex'), int)
 
 def get_neighbors(v: tuple[P, P, int], g, min_streak, max_streak):
 	p, dp, streak = v

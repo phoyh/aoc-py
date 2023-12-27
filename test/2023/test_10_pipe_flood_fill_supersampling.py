@@ -13,7 +13,7 @@ pipes = {
 }
 
 def get_all():
-	g = PDict.from_lines(file.lines('2023/10_mini'))
+	g = PDict.from_lines(file.lines('2023/10_ex'))
 	g3 = PDict({
 		n + c * 3: '#' if (v in pipes and n in pipes[v] | {(0, 0)}) else '.'
 		for n in O.neighbors(diag = True) | {O}

@@ -33,7 +33,7 @@ def test_first():
 	assert 108857 == get_load(height, rocks)
 
 def test_second():
-	g, hashes, rocks = get_input('2023/14_mini')
+	g, hashes, rocks = get_input('2023/14_ex')
 	todo = 1_000_000_000
 	width, height = g.size_by_dim()
 	lookup = {}

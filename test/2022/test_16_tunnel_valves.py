@@ -26,7 +26,7 @@ class Valve:
 	
 class TunnelSystem:
 	def __init__(self, mini=False):
-		self.valves = [Valve(l) for l in api.file.lines('2022/16' + ('_mini' if mini else ''))]
+		self.valves = [Valve(l) for l in api.file.lines('2022/16' + ('_ex' if mini else ''))]
 		for v in self.valves:
 			v.resolve_to(self)
 		connections = api.graph.dijkstra_all_to_all(self.valves, lambda v: v.to_valves, lambda *_: 1)

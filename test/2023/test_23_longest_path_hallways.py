@@ -1,7 +1,7 @@
 from api import file, P, PDict, RDict
 
 def get_grid():
-	g = PDict.from_lines(file.lines('2023/23_mini'))
+	g = PDict.from_lines(file.lines('2023/23_ex'))
 	width, height = g.size_by_dim()
 	start = P((1, 0))
 	end = P((width - 2, height - 1))

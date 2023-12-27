@@ -24,7 +24,7 @@ def test_first():
 	pivot_y = 10
 	intervals_on_pivot = CubeSet([])
 	beakons_on_pivot = set()
-	for sx, sy, bx, by, dist in get_readings('2022/15_mini'):
+	for sx, sy, bx, by, dist in get_readings('2022/15_ex'):
 		if by == pivot_y:
 			beakons_on_pivot.add(bx)
 		x_budget = dist - abs(sy - pivot_y)

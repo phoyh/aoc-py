@@ -25,7 +25,7 @@ def possible_assignments(row: str, groups: tuple[int, ...], damage_streak = 0):
 def solve(expand_factor):
 	return sum(
 		possible_assignments(*get_row_groups(l, expand_factor))
-		for l in file.lines('2023/12_mini')
+		for l in file.lines('2023/12_ex')
 	)
 
 def test_first():
