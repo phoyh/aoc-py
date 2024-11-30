@@ -22,12 +22,15 @@ result = 0
 #segs = file.segments(DAY, line_parse)
 #lines = file.lines(DAY, parse.uints)
 #lines = file.lines(DAY, parse.ints)
+#numbers = file.lines(DAY, int)
 #lines = file.lines(DAY, line_parse)
 #for lines in segs:
+#for n in nums:
 #for i, l in enumerate(lines):
 	#result += 1
 
 #line = '24-71 J: James\n0-2 B: Brat'
+#tuple_matches = re.findall(r'(\d+)-(\d+) (\w): (\w+)', line):
 #for match in re.finditer(r'(\d+)-(\d+) (\w): (\w+)', line):
 #	lo, hi, ch, word = match.groups()
 

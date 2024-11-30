@@ -1,7 +1,7 @@
 from api import PDict
 
 def getInput():
-	with open('../aocPython/input/2021/13.txt', 'r') as f:
+	with open('input/2021/13.txt', 'r') as f:
 		return [l.strip() for l in f.readlines()]
 
 def getFoldOp(line):

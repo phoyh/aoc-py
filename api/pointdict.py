@@ -139,6 +139,10 @@ class PDict(dict[P, TV]):
 	# IMPORT / EXPORT
 
 	@staticmethod
+	def from_points(points: PSet, point_value: TV, no_point_value: TV):
+		return PDict.from_minmax(points.minmax_by_dim(), no_point_value).draw_set(points, point_value)
+
+	@staticmethod
 	def from_lines(lines_with_char1_values: list[str],
 			value_mapper: Callable[[str], Any] = lambda c: c) -> PDict:
 		return PDict({

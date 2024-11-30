@@ -2,7 +2,7 @@ import itertools as it
 import numpy as np
 
 def get_lines():
-	with open('../aocPython/input/2021/08.txt', 'r') as f:
+	with open('input/2021/08.txt', 'r') as f:
 		return [[side.strip().split(' ') for side in l.split('|')] for l in f.readlines()]
 
 def count_unique(line):

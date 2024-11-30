@@ -23,7 +23,7 @@ if len(sys.argv) == 3:
 	year = int(sys.argv[1])
 	day = int(sys.argv[2])
 
-print('... getting full input')
+print(f'... getting full input {year}/{day}')
 
 req = urllib.request.Request(f'https://adventofcode.com/{year}/day/{day}/input')
 req.add_header('Cookie', f'session={sessionid};')
@@ -56,6 +56,9 @@ ex_sections = re.findall(r'[Ee]xample(.|\n)+?<code>((.|\n)*?)</code>', page)
 ex_encoded = ex_sections[0][1].replace('<em>', '').replace('</em>', '').strip()
 ex = html.unescape(ex_encoded)
 
+with open(f'input/{year}/{output_day}_ex.txt', 'w') as f:
+	f.write(ex)
+	f.close()
 with open('mini.txt', 'w') as f:
 	f.write(ex)
 	f.close()

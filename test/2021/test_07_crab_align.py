@@ -1,7 +1,7 @@
 import numpy as np
 
 def get_pos():
-	with open('../aocPython/input/2021/07.txt', 'r') as f:
+	with open('input/2021/07.txt', 'r') as f:
 		return [int(e.strip()) for e in f.readlines()[0].split(',')]
 
 def cost(delta):

@@ -26,5 +26,6 @@
 		"--disable=too-many-instance-attributes",
 		"--disable=too-many-arguments",
 		"--disable=too-many-function-args",
+		"--disable=multiple-statements",
 	]
 }

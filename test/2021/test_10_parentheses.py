@@ -1,7 +1,7 @@
 import functools as ft
 
 def getInput():
-	with open('../aocPython/input/2021/10.txt', 'r') as f:
+	with open('input/2021/10.txt', 'r') as f:
 		return [l.strip() for l in f.readlines()]
 
 pars = {'(': ')', '[': ']', '{': '}', '<': '>'}
