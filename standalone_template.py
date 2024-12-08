@@ -8,6 +8,10 @@ import heapq, math, re, sys
 from collections import Counter, defaultdict, deque
 from api import Cube, CubeSet, file, graph, parse, P, PSet, PDict, RDict, RSet, search, xmath, z3result
 N, S, W, E = NSWE = P.NSWE()
+NW = N + W
+NE = N + E
+SW = S + W
+SE = S + E
 O = P.O()
 
 ########### HERE ##############
@@ -20,19 +24,21 @@ def line_parse(line: str):
 result = 0
 #inp = file.readall(DAY)
 #segs = file.segments(DAY, line_parse)
+lines = file.lines(DAY, line_parse)
 #lines = file.lines(DAY, parse.uints)
 #lines = file.lines(DAY, parse.ints)
+#g = PDict.from_lines(lines)
 #numbers = file.lines(DAY, int)
-#lines = file.lines(DAY, line_parse)
 #for lines in segs:
 #for n in nums:
-#for i, l in enumerate(lines):
+for i, l in enumerate(lines):
 	#result += 1
+	pass
+
+print(result)
+#sys.exit()
 
 #line = '24-71 J: James\n0-2 B: Brat'
 #tuple_matches = re.findall(r'(\d+)-(\d+) (\w): (\w+)', line):
 #for match in re.finditer(r'(\d+)-(\d+) (\w): (\w+)', line):
 #	lo, hi, ch, word = match.groups()
-
-print(result)
-#sys.exit()

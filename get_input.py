@@ -10,7 +10,9 @@ import urllib.request
 import datetime
 import html
 import re
+import os
 import sys
+from collections import Counter
 
 with open('.sessionid', 'r') as f:
 	sessionid = f.read().strip()
@@ -35,16 +37,34 @@ except urllib.error.HTTPError:
 	sys.exit(1)
 
 output_day = f'0{day}'[-2:]
-with open(f'input/{year}/{output_day}.txt', 'w') as f:
+input_folder = f'input/{year}'
+if not os.path.exists(input_folder):
+    os.makedirs(input_folder)
+
+with open(f'{input_folder}/{output_day}.txt', 'w') as f:
 	f.write(content)
 	f.close()
 with open('full.txt', 'w') as f:
 	f.write(content)
 	f.close()
 
-print('##########################')
-print('\n'.join([l if len(l) < 120 else l[:120] + ' ...' for l in content.split('\n')[:5]]))
-print('##########################')
+lines = content.split('\n')
+print(f'... {len(lines)} lines')
+char_count_items = Counter(''.join(lines)).items()
+top_k = 4
+top_charcount = dict(sorted(char_count_items, key=lambda t: (-t[1], t[0]))[:top_k])
+top_chars = str(top_charcount)
+if len(char_count_items) > top_k:
+	top_chars = top_chars.replace('}', ', ...: <=' + str(min(top_charcount.values())) + '}')
+print(f'... top of {len(char_count_items)} distinct chars: {top_chars}')
+print('#' * 90)
+print('\n'.join([
+	((l if len(l) < 80 else l[:80] + ' ...') + ' ' * 85)[:85]
+		+ f'[{idx}]'
+	for idx in [0, 1, 2, 3, 4, len(lines) - 1]
+	for l in [lines[idx]]
+]))
+print('#' * 90)
 
 print('... getting example input')
 
@@ -56,7 +76,7 @@ ex_sections = re.findall(r'[Ee]xample(.|\n)+?<code>((.|\n)*?)</code>', page)
 ex_encoded = ex_sections[0][1].replace('<em>', '').replace('</em>', '').strip()
 ex = html.unescape(ex_encoded)
 
-with open(f'input/{year}/{output_day}_ex.txt', 'w') as f:
+with open(f'{input_folder}/{output_day}_ex.txt', 'w') as f:
 	f.write(ex)
 	f.close()
 with open('mini.txt', 'w') as f:

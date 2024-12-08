@@ -84,13 +84,25 @@ class P(TP):
 					res.add(candidate)
 		return res
 
+	def rotate_left(self) -> P:
+		return P((self[1], -self[0], *self[2:]))
+
+	def rotate_right(self) -> P:
+		return P((-self[1], self[0], *self[2:]))
+
+	def sgn(self) -> P:
+		"""
+		signum on each component
+		"""
+		return P(0 if e == 0 else (1 if e > 0 else -1) for e in self)
+
 	def to_cube(self) -> Cube:
 		iv = [(pc, pc) for pc in self]
 		return Cube(iv)
 
 	def transpose(self) -> P:
 		return P(self[::-1])
-
+	
 # late import to allow cyclic references between cube(set) and point(dict/list/set)
 # pylint: disable=wrong-import-position
 from .cube import Cube

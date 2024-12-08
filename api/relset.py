@@ -74,15 +74,37 @@ class RSet(TRSet):
 			assert False, [(t, f) for t, f in predecessors_by.items() if f]
 		return result
 
+	def transitive_closure(self) -> RSet:
+		result = self.copy()
+		for thro in self:
+			for fro in self:
+				if thro in result[fro]:
+					result[fro] |= result[thro]
+		return result
+
 	def vertices(self) -> set[Vertix]: # type: ignore
 		return ft.reduce(op.or_, self.values(), self.keys())
 
 	# IMPORT / EXPORT
 
 	@staticmethod
-	def from_dictlist(dict_with_lists_instead_of_sets: dict[Vertix, list[Vertix]]) -> RSet:
-		return RSet({k: set(v) for k, v in dict_with_lists_instead_of_sets.items()})
+	def from_dictlist(dict_with_lists: dict[Vertix, list[Vertix]]) -> RSet:
+		"""
+		Converts a dict with lists to a dict with sets (=RSet).
+		"""
+		return RSet({k: set(v) for k, v in dict_with_lists.items()})
 
+	@staticmethod
+	def from_list(l: list[tuple[Vertix, Vertix]] | list[list[Vertix]]) -> RSet:
+		"""
+		Converts a list of 2d-tuples or 2e-lists to a dict with sets (=RSet).
+		It combines the right side of all tuples/lists that share the same key (=left).
+		"""
+		result = RSet()
+		for fro, to in l:
+			result[fro].add(to)
+		return result
+	
 	def to_dictlist(self) -> dict[Vertix, list[Vertix]]:
 		return {k: list(v) for k, v in self.items()}
 

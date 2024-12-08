@@ -121,3 +121,16 @@ class RDict(TRDict):
 			v: {f: td[v] for f, td in self.items() if v in td}
 			for v in self.vertices()
 		})
+
+	# IMPORT / EXPORT
+
+	@staticmethod
+	def from_list(l: list[tuple[Vertix, Vertix, TV]] | list[list[Vertix | TV]]) -> RDict:
+		"""
+		Converts a list of 3d-tuples or 3e-lists (structure: < FROM , TO , ATTRIB >)
+		to a dict (key=from) of dicts (key=to) of value attrib.
+		"""
+		result = RDict()
+		for fro, to, attrib in l:
+			result[fro][to] = attrib
+		return result

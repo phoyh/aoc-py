@@ -20,16 +20,8 @@ def held_bags_count(bag_count_by_holder, bag):
 
 def test_first():
 	bag_count_by_holder = get_bag_count_by_holder()
-	holders_by_bag = bag_count_by_holder.to_set().reverse()
-	todo = ['shiny gold']
-	seen = set()
-	while todo:
-		bag = todo.pop()
-		if bag not in seen:
-			seen.add(bag)
-			for holder in holders_by_bag[bag]:
-				todo.append(holder)
-	assert 151 == len(seen) - 1
+	trans_holders_by_bag = bag_count_by_holder.to_set().reverse().transitive_closure()
+	assert 151 == len(trans_holders_by_bag['shiny gold'])
 
 def test_second():
 	assert 41559 == held_bags_count(get_bag_count_by_holder(), 'shiny gold')

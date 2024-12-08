@@ -16,6 +16,10 @@ class PDict(dict[P, TV]):
 	All operations are FUNCTIONAL (without side-effects) and
 	always return a new instance for the result.
 
+	The dictionary is a lazy default dictionary - requesting the value of unknown keys
+	yields the default value of the value type.
+	(Such defaulting only works if dictionary is not empty, of course.)
+
 	Drawing operations on the dictionary return same dictionary type (dict vs. defaultdict),
 	complete transformations do not.
 	"""
@@ -24,6 +28,13 @@ class PDict(dict[P, TV]):
 
 	def __or__(self, other: dict[P, TV]) -> PDict:
 		return PDict(dict.__or__(self, other))
+	
+	def __getitem__(self, key) -> TV:
+		if key in self:
+			return dict.__getitem__(self, key)
+		for e in self.values():
+			return type(e)()
+		assert False, f'tried to get value for key {key} in empty dictionary'
 
 	def copy(self) -> PDict:
 		return PDict(dict.copy(self))
