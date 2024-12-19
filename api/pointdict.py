@@ -1,7 +1,9 @@
 from __future__ import annotations
 import itertools as it
 from typing import TypeVar, Any, Callable
+from PIL import Image
 import numpy as np
+import os
 
 from .point import P, TP
 
@@ -29,6 +31,16 @@ class PDict(dict[P, TV]):
 	def __or__(self, other: dict[P, TV]) -> PDict:
 		return PDict(dict.__or__(self, other))
 	
+	def __sub__(self, other: dict[P, TV] | TPSet | list[P]) -> PDict:
+		if isinstance(other, list):
+			other = set(other)
+		return PDict({
+			k: v
+			for k, v in self.items()
+			if (isinstance(other, set) and k not in other)
+				or (isinstance(other, dict) and (k not in other or other[k] != v)) # type: ignore pylance
+		})
+
 	def __getitem__(self, key) -> TV:
 		if key in self:
 			return dict.__getitem__(self, key)
@@ -111,24 +123,12 @@ class PDict(dict[P, TV]):
 			result[p] = value_to_be_drawn
 		return result
 
-	def flood(self, flood_value: TV, start_point: TP, diag: bool = False) \
-			-> PDict:
+	def flood(self, flood_value: TV, start_point: TP, diag: bool = False,
+			matches: Callable[[tuple[TP, TV], tuple[TP, TV]], bool] = lambda a, b: a[1] == b[1]) -> PDict:
 		"""
-		Fills with 'flood_value' on starting point and any (transitively) adjacent points
-		that have same value as starting point
-
-		Note: That means tolerance = 0
+		Obtains the regions based on start_point and paints them with flood_value
 		"""
-		start_point = P.box(start_point)
-		result = self.copy()
-		source_value = self[start_point]
-		todo = {start_point}
-		while todo:
-			p = todo.pop()
-			if self[p] == source_value and result[p] != flood_value:
-				result[p] = flood_value
-				todo |= p.neighbors(diag, self)
-		return result
+		return self.draw_set(self.region(start_point, diag, matches), flood_value)
 
 	def fringe(self, diag: bool = False) -> PDict:
 		return PDict({p: self[p] for p in self.keys().fringe(diag = diag)})
@@ -144,6 +144,27 @@ class PDict(dict[P, TV]):
 			for n in p.neighbors(diag=diag, dist=distance)
 		} | self)
 
+	def region(self, start_point: TP, diag: bool = False,
+			matches: Callable[[tuple[TP, TV], tuple[TP, TV]], bool] = lambda a, b: a[1] == b[1]) -> PSet:
+		"""
+		Expands the start point based on the matcher
+		(defaulted to identical values, meaning tolerance = 0).
+		
+		All (transitively) adjacent points will be considered
+		as long there is a path allowed by the matcher.
+		"""
+		start_point = P.box(start_point)
+		result = PSet()
+		todo = [start_point]
+		while todo:
+			p = todo.pop()
+			if p not in result:
+				result.add(p)
+				for n in p.neighbors(diag, self):
+					if matches((p, self[p]), (n, self[n])):
+						todo.append(n)
+		return result
+	
 	def transpose(self) -> PDict:
 		return PDict({p.transpose(): v for p, v in self.items()})
 
@@ -185,6 +206,22 @@ class PDict(dict[P, TV]):
 		for x, y in self:
 			matrix[y - miny, x - minx] = self[P((x, y))]
 		return [''.join(l) for l in matrix]
+
+	def to_png(self, file_name: str, file_dir: str = ''):
+		"""
+		Exports the dictionary as a PNG file.
+		Assumes that the values are RGB int-tuples.
+		The [file_path/file_name] is relative to ./exports and should not contain the extension.
+		"""
+		(min_x, max_x), (min_y, max_y) = self.keys().minmax_by_dim()
+		im = Image.new('RGB', (max_x - min_x + 1, max_y - min_y + 1))
+		for p in self:
+			x, y = p
+			im.putpixel((x - min_x, y - min_y), self[p])
+		file_dir = f'exports/{file_dir}'
+		if not os.path.exists(file_dir):
+			os.makedirs(file_dir)
+		im.save(f'{file_dir}/{file_name}.png')
 
 	def to_str_2d(self) -> str:
 		return '\n'.join(self.to_lines_2d())

@@ -2,9 +2,10 @@ from typing import Callable, TypeVar
 
 T = TypeVar('T')
 
-def readall(path_in_input_wo_suffix: str) -> str:
+def readall(path_in_input_wo_suffix: str,
+		converter: Callable[[str], T] = lambda l: l) -> T:
 	with open('input/' + path_in_input_wo_suffix + '.txt', 'r') as f:
-		return f.read().rstrip()
+		return converter(f.read().rstrip())
 
 def segments(path_in_input_wo_suffix: str,
 		line_converter: Callable[[str], T] = lambda l: l) \

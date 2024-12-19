@@ -158,6 +158,12 @@ class CubeSet:
 				rights.append(right)
 		return CubeSet(lefts), CubeSet(rights)
 
+	# IMPORT / EXPORT
+
+	@staticmethod
+	def from_points(points: PSet) -> CubeSet:
+		return CubeSet([Cube.from_point(a) for a in points])
+
 	def to_points(self) -> PSet:
 		return ft.reduce(op.or_, map(Cube.to_points, self.__cubes))
 

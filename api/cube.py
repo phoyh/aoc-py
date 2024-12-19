@@ -109,6 +109,12 @@ class Cube:
 		right_iv[dim_index] = (lower_equal_value + 1, ma)
 		return Cube(left_iv), Cube(right_iv)
 
+	# IMPORT / EXPORT
+
+	@staticmethod
+	def from_point(point: TP) -> Cube:
+		return Cube([(a, a) for a in point])
+
 	def to_points(self) -> PSet:
 		ranges = [range(mi, ma + 1) for mi, ma in self.get_intervals()]
 		return PSet({

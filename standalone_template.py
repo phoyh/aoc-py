@@ -6,7 +6,7 @@ import functools as ft, itertools as it, operator as op
 import heapq, math, re, sys
 #import igraph as ig, networkx as nx, numpy as np, z3
 from collections import Counter, defaultdict, deque
-from api import Cube, CubeSet, file, graph, parse, P, PSet, PDict, RDict, RSet, search, xmath, z3result
+from api import Cube, CubeSet, file, graph, io, parse, P, PSet, PDict, RDict, RSet, search, xmath, z3result
 N, S, W, E = NSWE = P.NSWE()
 NW = N + W
 NE = N + E
@@ -31,11 +31,10 @@ lines = file.lines(DAY, line_parse)
 #numbers = file.lines(DAY, int)
 #for lines in segs:
 #for n in nums:
-for i, l in enumerate(lines):
+#for i, l in enumerate(lines):
 	#result += 1
-	pass
 
-print(result)
+io.print_clip(result)
 #sys.exit()
 
 #line = '24-71 J: James\n0-2 B: Brat'

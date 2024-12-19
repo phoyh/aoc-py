@@ -51,17 +51,17 @@ with open('full.txt', 'w') as f:
 lines = content.split('\n')
 print(f'... {len(lines)} lines')
 char_count_items = Counter(''.join(lines)).items()
-top_k = 4
+top_k = 5
 top_charcount = dict(sorted(char_count_items, key=lambda t: (-t[1], t[0]))[:top_k])
 top_chars = str(top_charcount)
 if len(char_count_items) > top_k:
 	top_chars = top_chars.replace('}', ', ...: <=' + str(min(top_charcount.values())) + '}')
-print(f'... top of {len(char_count_items)} distinct chars: {top_chars}')
+print(f'... top of {len(char_count_items)} chars: {top_chars}')
 print('#' * 90)
 print('\n'.join([
 	((l if len(l) < 80 else l[:80] + ' ...') + ' ' * 85)[:85]
 		+ f'[{idx}]'
-	for idx in [0, 1, 2, 3, 4, len(lines) - 1]
+	for idx in sorted(list(set(range(min(5, len(lines)))) | {len(lines) - 1}))
 	for l in [lines[idx]]
 ]))
 print('#' * 90)
@@ -72,15 +72,20 @@ req = urllib.request.Request(f'https://adventofcode.com/{year}/day/{day}')
 req.add_header('Cookie', f'session={sessionid};')
 with urllib.request.urlopen(req) as u:
 	page = u.read().decode('utf-8')
-ex_sections = re.findall(r'[Ee]xample(.|\n)+?<code>((.|\n)*?)</code>', page)
-ex_encoded = ex_sections[0][1].replace('<em>', '').replace('</em>', '').strip()
+# adding <pre> to ensure real examples (in own paragraph) - avert single "0" (ex. 2024/18)
+ex_sections = re.findall(r'[Ee]xample(.|\n)+?<pre>(.|\n)*?<code>((.|\n)*?)</code>', page)
+ex_encoded = ex_sections[0][2].replace('<em>', '').replace('</em>', '').strip()
 ex = html.unescape(ex_encoded)
 
-with open(f'{input_folder}/{output_day}_ex.txt', 'w') as f:
-	f.write(ex)
-	f.close()
+input_ex = f'{input_folder}/{output_day}_ex.txt'
+if os.path.isfile(input_ex):
+	print('... example already exists in input folder - no overwrite')
+else:
+	with open(input_ex, 'w') as f:
+		f.write(ex)
+		f.close()
 with open('mini.txt', 'w') as f:
 	f.write(ex)
 	f.close()
 
-print("Done!")
+print('Done!')

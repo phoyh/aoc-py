@@ -1,4 +1,5 @@
 import re
+import networkx as nx
 from api import file, RDict
 
 def line_parse(line: str):
@@ -25,3 +26,11 @@ def test_first():
 
 def test_second():
 	assert 41559 == held_bags_count(get_bag_count_by_holder(), 'shiny gold')
+
+######## networkx version ########
+
+def test_first_nx():
+	bag_count_by_holder = get_bag_count_by_holder()
+	g = bag_count_by_holder.to_nx_digraph()
+	trans_clos_g: nx.DiGraph = nx.transitive_closure(g) # type: ignore pylance: reportAssignmentType
+	assert 151 == len(trans_clos_g.in_edges('shiny gold'))

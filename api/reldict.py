@@ -1,6 +1,7 @@
 from __future__ import annotations
 from typing import TypeVar, Callable
 from collections import defaultdict
+import networkx as nx
 
 from .graph import Vertix
 from .relset import RSet
@@ -133,4 +134,15 @@ class RDict(TRDict):
 		result = RDict()
 		for fro, to, attrib in l:
 			result[fro][to] = attrib
+		return result
+
+	def to_nx_digraph(self) -> nx.DiGraph:
+		"""
+		Converts to networkx directed graph.
+		The attribute value is written into the edges' attributes 'weight' and 'capacity'.
+		"""
+		result = nx.DiGraph()
+		for fro, tos in self.items():
+			for to, attrib in tos.items():
+				result.add_edge(fro, to, weight=attrib, capacity=attrib)
 		return result

@@ -5,9 +5,6 @@ import itertools as it
 from collections import defaultdict
 
 Vertix = TypeVar('Vertix')
-FnNeighbors = Callable[[Vertix], set[Vertix]]
-FnEdgeCost = Callable[[Vertix, Vertix], int | float]
-FnIsPathPrefixLegit = Callable[[list[Vertix]], bool]
 
 # DIJKSTRA
 
@@ -22,9 +19,9 @@ def __dijkstra_start_todos(start: Vertix | set[Vertix]) \
 
 def dijkstra(start: Vertix | set[Vertix],
 		end: Vertix | Callable[[Vertix], bool],
-		neighbors: FnNeighbors,
-		edge_cost: FnEdgeCost = lambda *_: 1,
-		is_path_prefix_legit: FnIsPathPrefixLegit = lambda *_: True) \
+		neighbors: Callable[[Vertix], set[Vertix]],
+		edge_cost: Callable[[Vertix, Vertix], int | float] = lambda *_: 1,
+		is_path_prefix_legit: Callable[[list[Vertix]], bool] = lambda *_: True) \
 		-> tuple[int | float, list[Vertix]]:
 	end_fn = end if callable(end) else lambda v: v == end
 	todos = __dijkstra_start_todos(start)
@@ -44,9 +41,9 @@ def dijkstra(start: Vertix | set[Vertix],
 	return (math.inf, [])
 
 def dijkstra_to_all(start: Vertix | set[Vertix],
-		neighbors: FnNeighbors,
-		edge_cost: FnEdgeCost = lambda *_: 1,
-		is_path_prefix_legit: FnIsPathPrefixLegit = lambda *_: True,
+		neighbors: Callable[[Vertix], set[Vertix]],
+		edge_cost: Callable[[Vertix, Vertix], int | float] = lambda *_: 1,
+		is_path_prefix_legit: Callable[[list[Vertix]], bool] = lambda *_: True,
 		max_costs: float = math.inf) \
 		-> dict[Vertix, tuple[int | float, list[Vertix]]]:
 	todos = __dijkstra_start_todos(start)
@@ -66,7 +63,8 @@ def dijkstra_to_all(start: Vertix | set[Vertix],
 	return result
 
 def dijkstra_all_to_all(vertices: list[Vertix],
-			get_neighbors: FnNeighbors, get_edge_cost: FnEdgeCost
+			get_neighbors: Callable[[Vertix], set[Vertix]],
+			get_edge_cost: Callable[[Vertix, Vertix], int | float]
 		) -> dict[tuple[Vertix, Vertix], tuple[int | float, list[Vertix] | None]]:
 	# modified Floyd–Warshall, O(n^3) - scales badly
 	vertix_pairs = set(it.product(vertices, repeat=2))

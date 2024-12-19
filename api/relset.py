@@ -1,6 +1,8 @@
 from __future__ import annotations
 import operator as op
 import functools as ft
+import igraph as ig
+import networkx as nx
 
 from .graph import Vertix
 
@@ -110,3 +112,21 @@ class RSet(TRSet):
 
 	def to_tuplelist(self) -> list[tuple[Vertix, Vertix]]:
 		return [(k, v) for k, vs in self.items() for v in vs]
+
+	def to_ig_graph(self, directed=True) -> ig.Graph:
+		"""
+		Converts to igraph graph (directed by default).
+		If directed is False, the minimum symmetrical closure of the relationship is taken.
+		"""
+		return ig.Graph.ListDict(self.to_dictlist(), directed=directed)
+
+	def to_nx_digraph(self) -> nx.DiGraph:
+		"""
+		Converts to networkx directed graph.
+		The edges' attributes 'weight' and 'capacity' are set to 1.
+		"""
+		result = nx.DiGraph()
+		for fro, tos in self.items():
+			for to in tos:
+				result.add_edge(fro, to, weight=1, capacity=1)
+		return result

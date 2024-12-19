@@ -1,5 +1,3 @@
-import itertools as it
-
 import api.graph
 
 def getStartStacks(isToBeAdded):
