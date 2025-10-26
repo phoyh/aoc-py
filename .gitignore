@@ -4,3 +4,4 @@ temp*.py
 mini.txt
 full.txt
 .sessionid
+.venv
