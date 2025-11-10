@@ -123,6 +123,13 @@ class PDict(dict[P, TV]):
 			result[p] = value_to_be_drawn
 		return result
 
+	def filter(self, predicate: Callable[[TP, TV], bool]) -> PDict:
+		return PDict({
+			p: v
+			for p, v in self.items()
+			if predicate(p, v)
+		})
+
 	def flood(self, flood_value: TV, start_point: TP, diag: bool = False,
 			matches: Callable[[tuple[TP, TV], tuple[TP, TV]], bool] = lambda a, b: a[1] == b[1]) -> PDict:
 		"""

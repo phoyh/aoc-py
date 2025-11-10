@@ -1,6 +1,7 @@
 from __future__ import annotations
 import itertools as it
 from typing import Any
+import functools as ft
 
 # for NSWE usage:
 # N, S, W, E = NSWE = Point.NSWE()
@@ -20,7 +21,7 @@ class P(TP):
 	@classmethod
 	def NSWE(cls):
 		return [P(p) for p in [(0, -1), (0, 1), (-1, 0), (1, 0)]]
-
+	
 	@classmethod
 	def O(cls):
 		return P((0, 0))
@@ -30,6 +31,7 @@ class P(TP):
 		return p if isinstance(p, P) else P(p)
 	
 	@classmethod
+	@ft.cache
 	def by_dir(cls, d: str) -> P:
 		"""
 		Understands cardinal orientations (NSWE), directions (UDLR) and symbols (^v<>).
