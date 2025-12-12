@@ -41,3 +41,11 @@ io.print_clip(result)
 #tuple_matches = re.findall(r'(\d+)-(\d+) (\w): (\w+)', line):
 #for match in re.finditer(r'(\d+)-(\d+) (\w): (\w+)', line):
 #	lo, hi, ch, word = match.groups()
+
+#g = PDict.from_lines(lines)
+#cost, path = graph.dijkstra(
+#	start=P.O(),
+#	end=P.NSWE()[0],
+#	neighbors=lambda p: p.neighbors(diag=False, within=g),
+#	edge_cost=lambda a, b: 1
+#)

@@ -73,6 +73,9 @@ class P(TP):
 		comp_dist = [abs(a - b) for a, b in zip(self, point_any_dim2)]
 		return max(comp_dist) if diag else sum(comp_dist)
 
+	def distance_euclidean(self, point_any_dim2: TP) -> float:
+		return sum((a - b) ** 2 for a, b in zip(self, point_any_dim2)) ** 0.5
+
 	def neighbors(self, diag: bool = False,
 			within: TPSet | dict[P, Any] | None = None,
 			dist: int = 1) -> PSet:

@@ -13,6 +13,6 @@ def uints(line_or_lines: str | list[str]) -> list[int]:
 	line = __line_or_lines_to_line(line_or_lines)
 	return [int(e) for e in re.findall(r'\d+', line, flags=re.MULTILINE)]
 
-def words(line_or_lines: str | list[str]) -> list[int]:
+def words(line_or_lines: str | list[str]) -> list[str]:
 	line = __line_or_lines_to_line(line_or_lines)
 	return re.findall(r'\w+', line, flags=re.MULTILINE)

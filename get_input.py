@@ -14,6 +14,8 @@ import os
 import sys
 from collections import Counter
 
+LINE_LEN = 50
+
 with open('.sessionid', 'r') as f:
 	sessionid = f.read().strip()
 	f.close()
@@ -21,9 +23,10 @@ with open('.sessionid', 'r') as f:
 today = datetime.date.today()
 year = today.year
 day = today.day
-if len(sys.argv) == 3:
-	year = int(sys.argv[1])
-	day = int(sys.argv[2])
+if len(sys.argv) > 1:
+	if len(sys.argv) == 3:
+		year = int(sys.argv[1])
+	day = int(sys.argv[-1])
 
 print(f'... getting full input {year}/{day}')
 
@@ -57,14 +60,18 @@ top_chars = str(top_charcount)
 if len(char_count_items) > top_k:
 	top_chars = top_chars.replace('}', ', ...: <=' + str(min(top_charcount.values())) + '}')
 print(f'... top of {len(char_count_items)} chars: {top_chars}')
-print('#' * 90)
+print('#' * LINE_LEN)
 print('\n'.join([
-	((l if len(l) < 80 else l[:80] + ' ...') + ' ' * 85)[:85]
-		+ f'[{idx}]'
+	(
+		(
+			l if len(l) < LINE_LEN - 10 else
+			l[:LINE_LEN-20] + ' ... ' + l[-9:]
+		) + ' ' * (LINE_LEN-5)
+	)[:LINE_LEN-5] + f'[{idx}]'
 	for idx in sorted(list(set(range(min(5, len(lines)))) | {len(lines) - 1}))
 	for l in [lines[idx]]
 ]))
-print('#' * 90)
+print('#' * LINE_LEN)
 
 print('... getting example input')
 

@@ -17,7 +17,7 @@ def visible_num(hs, my_h):
 def get_vision(m, x, y):
 	dirs = [list(reversed(m[:y, x])), m[y+1:, x], list(reversed(m[y, :x])), m[y, x+1:]]
 	dir_ranges = [visible_num(d, m[y, x]) for d in dirs]
-	return int(np.product(dir_ranges))
+	return int(np.prod(dir_ranges))
 
 def test_first():
 	m = get_matrix()

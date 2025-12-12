@@ -1,9 +1,9 @@
 from __future__ import annotations
 import itertools as it
 from typing import TypeVar, Any, Callable
+import os
 from PIL import Image
 import numpy as np
-import os
 
 from .point import P, TP
 
@@ -224,7 +224,7 @@ class PDict(dict[P, TV]):
 		im = Image.new('RGB', (max_x - min_x + 1, max_y - min_y + 1))
 		for p in self:
 			x, y = p
-			im.putpixel((x - min_x, y - min_y), self[p])
+			im.putpixel((x - min_x, y - min_y), self[p])  # type: ignore
 		file_dir = f'exports/{file_dir}'
 		if not os.path.exists(file_dir):
 			os.makedirs(file_dir)

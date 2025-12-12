@@ -8,7 +8,7 @@ def getProductOfSummands(numberOfSummands):
 		if len(set(indexes)) == len(indexes):
 			vals = [ns[i] for i in indexes]
 			if sum(vals) == 2020:
-				return np.product(vals)
+				return np.prod(vals)
 
 def test_first():
 	assert 898299 == getProductOfSummands(2)
